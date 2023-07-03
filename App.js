@@ -1,10 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import { useFonts } from 'expo-font';
 import { StyleSheet, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { RegistrationScreen } from './Screens/RegistrationScreen';
 import { LoginScreen } from './Screens/LoginScreen';
-import { useFonts } from 'expo-font';
 
 export default function App() {
+  const [isRegistered, setIsRegistered] = useState(false);
+
   const [fontsLoaded] = useFonts({
     'Roboto-400': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-500': require('./assets/fonts/Roboto-Medium.ttf'),
@@ -15,8 +18,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style='auto' />
-      {/* <RegistrationScreen /> */}
-      <LoginScreen />
+      {!isRegistered && <RegistrationScreen setIsRegistered={setIsRegistered} />}
+      {isRegistered && <LoginScreen setIsRegistered={setIsRegistered} />}
     </View>
   );
 }

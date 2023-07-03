@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { StyleSheet, Image, View, Text, TextInput, Pressable } from 'react-native';
 
-export const RegistrationScreen = () => {
+export const RegistrationScreen = ({ setIsRegistered }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -75,7 +75,9 @@ export const RegistrationScreen = () => {
           <Pressable style={styles.btnRegister}>
             <Text style={styles.btnRegisterLabel}>Зареєструватися</Text>
           </Pressable>
-          <Pressable style={styles.btnLogin}>
+          <Pressable
+            style={styles.btnLogin}
+            onPress={() => setIsRegistered(true)}>
             <Text style={styles.btnLoginLabel}>Вже є акаунт? Увійти</Text>
           </Pressable>
         </View>
