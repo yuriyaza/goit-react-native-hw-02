@@ -1,15 +1,18 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { StyleSheet, Image, View, Text, TextInput, Pressable } from 'react-native';
+import { Context } from '../App';
 
-export const LoginScreen = ({ setIsRegistered }) => {
+export const LoginScreen = () => {
+  const { setIsRegistered } = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
+  
   const passwordInput = useRef();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  
 
   function showPassword() {
     passwordInput.current.focus();

@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { StyleSheet, Image, View, Text, TextInput, Pressable } from 'react-native';
+import { Context } from '../App';
 
-export const RegistrationScreen = ({ setIsRegistered }) => {
+export const RegistrationScreen = () => {
+  const { setIsRegistered } = useContext(Context);
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,9 +11,10 @@ export const RegistrationScreen = ({ setIsRegistered }) => {
   const [isLoginFocused, setIsLoginFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
+  
   const passwordInput = useRef();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  
 
   function showPassword() {
     passwordInput.current.focus();
