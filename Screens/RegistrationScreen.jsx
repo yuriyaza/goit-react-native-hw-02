@@ -1,30 +1,75 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { StyleSheet, Image, View, Text, TextInput, Pressable } from 'react-native';
 
 export const RegistrationScreen = () => {
+  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [isLoginFocused, setIsLoginFocused] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+  const passwordInput = useRef();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
-  function passwordHide() {
+  function showPassword() {
+    passwordInput.current.focus();
     setIsPasswordHidden(state => (state.isPasswordHidden = !isPasswordHidden));
   }
 
   return (
     <>
-      <Image style={styles.background} source={require('../assets/img/background-photo-min.jpg')} />
+      <Image
+        style={styles.background}
+        source={require('../assets/img/background-photo-min.jpg')}
+      />
       <View style={styles.registrationForm}>
         <View style={styles.userPhoto}>
           <Pressable style={styles.btnAddPhoto}>
-            <Image style={styles.btnAddPhotoIcon} source={require('../assets/img/button-add-photo-min.png')} />
+            <Image
+              style={styles.btnAddPhotoIcon}
+              source={require('../assets/img/button-add-photo-min.png')}
+            />
           </Pressable>
         </View>
         <View style={styles.container}>
           <Text style={styles.title}>Реєстрація</Text>
-          <TextInput style={styles.input} textContentType='username' placeholder='Логін' />
-          <TextInput style={styles.input} textContentType='emailAddress' placeholder='Адреса електронної пошти' />
+          <TextInput
+            style={[styles.input, isLoginFocused && styles.inputFocused]}
+            textContentType='username'
+            value={login}
+            onChangeText={setLogin}
+            onFocus={() => setIsLoginFocused(true)}
+            onBlur={() => setIsLoginFocused(false)}
+            placeholder='Логін'
+          />
+          <TextInput
+            style={[styles.input, isEmailFocused && styles.inputFocused]}
+            textContentType='emailAddress'
+            keyboardType='email-address'
+            value={email}
+            onChangeText={setEmail}
+            onFocus={() => setIsEmailFocused(true)}
+            onBlur={() => setIsEmailFocused(false)}
+            placeholder='Адреса електронної пошти'
+          />
           <View>
-            <TextInput style={[styles.input, styles.lastInput]} textContentType='password' secureTextEntry={isPasswordHidden} placeholder='Пароль' />
-            <Pressable style={styles.btnShow} onPress={passwordHide}>
-              <Text style={styles.btnShowLabel}>Показати</Text>
+            <TextInput
+              style={[styles.input, styles.inputLast, isPasswordFocused && styles.inputFocused]}
+              ref={passwordInput}
+              textContentType='password'
+              secureTextEntry={isPasswordHidden}
+              value={password}
+              onChangeText={setPassword}
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={() => setIsPasswordFocused(false)}
+              placeholder='Пароль'
+            />
+            <Pressable
+              style={styles.btnPasswordShow}
+              onPress={showPassword}>
+              <Text style={styles.btnPasswordShowLabel}>Показати</Text>
             </Pressable>
           </View>
           <Pressable style={styles.btnRegister}>
@@ -114,17 +159,21 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 
-  lastInput: {
+  inputLast: {
     marginBottom: 43,
   },
 
-  btnShow: {
+  inputFocused: {
+    borderColor: '#FF6C00',
+  },
+
+  btnPasswordShow: {
     position: 'absolute',
     top: 22,
     right: 16,
   },
 
-  btnShowLabel: {
+  btnPasswordShowLabel: {
     fontFamily: 'Roboto-400',
     fontSize: 16,
     lineHeight: 19,

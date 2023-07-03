@@ -5,15 +5,15 @@ import { useFonts } from 'expo-font';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Roboto-400': require('./assets/fonts/Roboto-400.ttf'),
-    'Roboto-500': require('./assets/fonts/Roboto-500.ttf'),
-    'Roboto-700': require('./assets/fonts/Roboto-700.ttf'),
+    'Roboto-400': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Roboto-500': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto-700': require('./assets/fonts/Roboto-Bold.ttf'),
   });
   if (!fontsLoaded) { return null; }
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
       <RegistrationScreen />
     </View>
   );
