@@ -1,9 +1,7 @@
-import { useState, useRef, useContext } from 'react';
-import { StyleSheet, Image, View, Text, TextInput, Pressable } from 'react-native';
-import { Context } from '../App';
+import { useState, useRef } from 'react';
+import { View, Text, TextInput, Image, Pressable, StyleSheet } from 'react-native';
 
-export const RegistrationScreen = () => {
-  const { setIsRegistered } = useContext(Context);
+export const RegistrationScreen = ({ userRegistered }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,10 +9,9 @@ export const RegistrationScreen = () => {
   const [isLoginFocused, setIsLoginFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  
+
   const passwordInput = useRef();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-  
 
   function showPassword() {
     passwordInput.current.focus();
@@ -80,7 +77,7 @@ export const RegistrationScreen = () => {
           </Pressable>
           <Pressable
             style={styles.btnLogin}
-            onPress={() => setIsRegistered(true)}>
+            onPress={() => userRegistered(true)}>
             <Text style={styles.btnLoginLabel}>Вже є акаунт? Увійти</Text>
           </Pressable>
         </View>

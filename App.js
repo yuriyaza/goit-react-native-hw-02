@@ -1,30 +1,26 @@
-import { createContext, useState } from 'react';
+import { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
-import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { RegistrationScreen } from './Screens/RegistrationScreen';
 import { LoginScreen } from './Screens/LoginScreen';
 
-export const Context = createContext();
-
 export default function App() {
-  const [isRegistered, setIsRegistered] = useState(false);
-  
+  const [isUserRegistered, setIsUserRegistered] = useState(false);
+
   const [fontsLoaded] = useFonts({
     'Roboto-400': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-500': require('./assets/fonts/Roboto-Medium.ttf'),
     'Roboto-700': require('./assets/fonts/Roboto-Bold.ttf'),
   });
   if (!fontsLoaded) { return null; }
-  
+
   return (
-    <Context.Provider value={{ isRegistered, setIsRegistered }}>
-      <View style={styles.container}>
-        <StatusBar style='auto' />
-        {!isRegistered && <RegistrationScreen setIsRegistered={setIsRegistered} />}
-        {isRegistered && <LoginScreen setIsRegistered={setIsRegistered} />}
-      </View>
-    </Context.Provider>
+    <View style={styles.container}>
+      {!isUserRegistered && <RegistrationScreen userRegistered={setIsUserRegistered} />}
+      {isUserRegistered && <LoginScreen userRegistered={setIsUserRegistered} />}
+      <StatusBar style='auto' />
+    </View>
   );
 }
 
