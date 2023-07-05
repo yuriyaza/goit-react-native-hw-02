@@ -13,7 +13,7 @@ export const LoginScreen = ({ userRegistered }) => {
 
   function showPassword() {
     passwordInput.current.focus();
-    setIsPasswordHidden(state => (state.isPasswordHidden = !isPasswordHidden));
+    setIsPasswordHidden(state => !state);
   }
 
   return (
