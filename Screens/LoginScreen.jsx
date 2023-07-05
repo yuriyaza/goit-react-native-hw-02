@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { View, Text, TextInput, Image, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
 export const LoginScreen = ({ userRegistered }) => {
   const [email, setEmail] = useState('');
@@ -17,75 +17,56 @@ export const LoginScreen = ({ userRegistered }) => {
   }
 
   return (
-    <>
-      <Image
-        style={styles.background}
-        source={require('../assets/img/background-photo-min.jpg')}
-      />
-      <View style={styles.registrationForm}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Увійти</Text>
+    <View style={styles.loginForm}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Увійти</Text>
+        <TextInput
+          style={[styles.input, isEmailFocused && styles.inputFocused]}
+          textContentType='emailAddress'
+          keyboardType='email-address'
+          value={email}
+          onChangeText={setEmail}
+          onFocus={() => setIsEmailFocused(true)}
+          onBlur={() => setIsEmailFocused(false)}
+          placeholder='Адреса електронної пошти'
+        />
+        <View>
           <TextInput
-            style={[styles.input, isEmailFocused && styles.inputFocused]}
-            textContentType='emailAddress'
-            keyboardType='email-address'
-            value={email}
-            onChangeText={setEmail}
-            onFocus={() => setIsEmailFocused(true)}
-            onBlur={() => setIsEmailFocused(false)}
-            placeholder='Адреса електронної пошти'
+            style={[styles.input, styles.inputLast, isPasswordFocused && styles.inputFocused]}
+            ref={passwordInput}
+            textContentType='password'
+            secureTextEntry={isPasswordHidden}
+            value={password}
+            onChangeText={setPassword}
+            onFocus={() => setIsPasswordFocused(true)}
+            onBlur={() => setIsPasswordFocused(false)}
+            placeholder='Пароль'
           />
-          <View>
-            <TextInput
-              style={[styles.input, styles.inputLast, isPasswordFocused && styles.inputFocused]}
-              ref={passwordInput}
-              textContentType='password'
-              secureTextEntry={isPasswordHidden}
-              value={password}
-              onChangeText={setPassword}
-              onFocus={() => setIsPasswordFocused(true)}
-              onBlur={() => setIsPasswordFocused(false)}
-              placeholder='Пароль'
-            />
-            <Pressable
-              style={styles.btnPasswordShow}
-              onPress={showPassword}>
-              <Text style={styles.btnPasswordShowLabel}>Показати</Text>
-            </Pressable>
-          </View>
-          <Pressable style={styles.btnLogin}>
-            <Text style={styles.btnLoginLabel}>Увійти</Text>
-          </Pressable>
           <Pressable
-            style={styles.btnRegister}
-            onPress={() => userRegistered(false)}>
-            <Text style={styles.btnRegisterLabel}>
-              Немає акаунту?&nbsp;
-              <Text style={styles.btnRegisterLabelUnderline}>Зареєструватися</Text>
-            </Text>
+            style={styles.btnPasswordShow}
+            onPress={showPassword}>
+            <Text style={styles.btnPasswordShowLabel}>Показати</Text>
           </Pressable>
         </View>
+        <Pressable style={styles.btnLogin}>
+          <Text style={styles.btnLoginLabel}>Увійти</Text>
+        </Pressable>
+        <Pressable
+          style={styles.btnRegister}
+          onPress={() => userRegistered(false)}>
+          <Text style={styles.btnRegisterLabel}>
+            Немає акаунту?&nbsp;
+            <Text style={styles.btnRegisterLabelUnderline}>Зареєструватися</Text>
+          </Text>
+        </Pressable>
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+  loginForm: {
     width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-
-  registrationForm: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-
     paddingTop: 32,
     paddingBottom: 95,
     borderTopLeftRadius: 25,
